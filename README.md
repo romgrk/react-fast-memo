@@ -28,8 +28,10 @@ console.log(fastCompare(
 ))
 // => false
 
-// `fastCompareUnsafe` is optimized for react props: non-nullable objects
-// where `prop: undefined` is equivalent to not having the prop.
+// `fastCompareUnsafe` is optimized for one case: non-nullable objects
+// where either:
+//  - `field: undefined` is equivalent to not having the field.
+//  - you can 100% guarantee that objects have the same shape
 console.log(fastCompareUnsafe(
   { a: 1, b: undefined },
   { a: 1, c: undefined },
