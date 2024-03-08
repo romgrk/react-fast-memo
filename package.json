@@ -1,7 +1,7 @@
 {
   "name": "react-fast-memo",
   "type": "module",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "./index.js",
   "types": "./index.d.ts",
