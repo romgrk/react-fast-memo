@@ -15,3 +15,25 @@ const MemoizedComponent = fastMemo(function Component(props) {
   )
 })
 ```
+
+These comparison functions are also included:
+
+```javascript
+import { fastCompare, fastCompareForReactProps } from 'react-fast-memo'
+
+// `fastCompare` is for general and correct nullable-objects comparison
+console.log(fastCompare(
+  { a: 1, b: undefined },
+  { a: 1 },
+))
+// => false
+
+// `fastCompareForReactProps` is optimized for react props: non-nullable objects
+// where `prop: undefined` is equivalent to not having the prop.
+console.log(fastCompareForReactProps(
+  { a: 1, b: undefined },
+  { a: 1 },
+))
+// => true
+
+```
