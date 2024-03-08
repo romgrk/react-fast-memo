@@ -32,7 +32,7 @@ console.log(fastCompare(
 // where `prop: undefined` is equivalent to not having the prop.
 console.log(fastCompareUnsafe(
   { a: 1, b: undefined },
-  { a: 1 },
+  { a: 1, c: undefined },
 ))
 // => true
 
