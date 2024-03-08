@@ -38,6 +38,13 @@ console.log(fastCompareForReactProps(
 
 ```
 
+The default export uses `fastCompareForReactProps` which may feel too unsafe for your use-case. In that case
+you can use `fastMemoSafe` which uses the more correct version:
+
+```javascript
+import { fastMemoSafe } from 'react-fast-memo'
+```
+
 ### Benchmarks
 
 In least performant to most performant order. Each function is benchmarked for objects that are `equal` and `unequal`.

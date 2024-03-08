@@ -7,6 +7,10 @@ export function fastMemo<T>(component: T): T {
   return memo(component as any, fastCompareForReactProps) as unknown as T;
 }
 
+export function fastMemoSafe<T>(component: T): T {
+  return memo(component as any, fastCompare) as unknown as T;
+}
+
 export function fastCompare<T extends Record<string, any> | null>(a: T, b: T) {
   if (a === b) {
     return true;
