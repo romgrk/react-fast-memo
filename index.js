@@ -1,17 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fastCompareForReactProps = exports.fastCompare = exports.fastMemoSafe = exports.fastMemo = void 0;
+exports.fastCompareUnsafe = exports.fastCompare = exports.fastMemoUnsafe = exports.fastMemo = void 0;
 var react_1 = require("react");
 var is = Object.is;
 exports.default = fastMemo;
 function fastMemo(component) {
-    return (0, react_1.memo)(component, fastCompareForReactProps);
-}
-exports.fastMemo = fastMemo;
-function fastMemoSafe(component) {
     return (0, react_1.memo)(component, fastCompare);
 }
-exports.fastMemoSafe = fastMemoSafe;
+exports.fastMemo = fastMemo;
+function fastMemoUnsafe(component) {
+    return (0, react_1.memo)(component, fastCompareUnsafe);
+}
+exports.fastMemoUnsafe = fastMemoUnsafe;
 function fastCompare(a, b) {
     if (a === b) {
         return true;
@@ -36,7 +36,7 @@ function fastCompare(a, b) {
     return aLength === bLength;
 }
 exports.fastCompare = fastCompare;
-function fastCompareForReactProps(a, b) {
+function fastCompareUnsafe(a, b) {
     var aLength = 0;
     var bLength = 0;
     for (var key in a) {
@@ -50,4 +50,4 @@ function fastCompareForReactProps(a, b) {
     }
     return aLength === bLength;
 }
-exports.fastCompareForReactProps = fastCompareForReactProps;
+exports.fastCompareUnsafe = fastCompareUnsafe;

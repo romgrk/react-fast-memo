@@ -4,11 +4,11 @@ const is = Object.is;
 export default fastMemo;
 
 export function fastMemo<T>(component: T): T {
-  return memo(component as any, fastCompareForReactProps) as unknown as T;
+  return memo(component as any, fastCompare) as unknown as T;
 }
 
-export function fastMemoSafe<T>(component: T): T {
-  return memo(component as any, fastCompare) as unknown as T;
+export function fastMemoUnsafe<T>(component: T): T {
+  return memo(component as any, fastCompareUnsafe) as unknown as T;
 }
 
 export function fastCompare<T extends Record<string, any> | null>(a: T, b: T) {
@@ -40,7 +40,7 @@ export function fastCompare<T extends Record<string, any> | null>(a: T, b: T) {
   return aLength === bLength;
 }
 
-export function fastCompareForReactProps<T extends Record<string, any>>(a: T, b: T) {
+export function fastCompareUnsafe<T extends Record<string, any>>(a: T, b: T) {
   let aLength = 0;
   let bLength = 0;
 

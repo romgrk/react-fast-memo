@@ -19,7 +19,7 @@ const MemoizedComponent = fastMemo(function Component(props) {
 These comparison functions are also included:
 
 ```javascript
-import { fastCompare, fastCompareForReactProps } from 'react-fast-memo'
+import { fastCompare, fastCompareUnsafe } from 'react-fast-memo'
 
 // `fastCompare` is for general and correct nullable-objects comparison
 console.log(fastCompare(
@@ -28,9 +28,9 @@ console.log(fastCompare(
 ))
 // => false
 
-// `fastCompareForReactProps` is optimized for react props: non-nullable objects
+// `fastCompareUnsafe` is optimized for react props: non-nullable objects
 // where `prop: undefined` is equivalent to not having the prop.
-console.log(fastCompareForReactProps(
+console.log(fastCompareUnsafe(
   { a: 1, b: undefined },
   { a: 1 },
 ))
@@ -38,11 +38,12 @@ console.log(fastCompareForReactProps(
 
 ```
 
-The default export uses `fastCompareForReactProps` which may feel too unsafe for your use-case. In that case
-you can use `fastMemoSafe` which uses the more correct version:
+If you never use the pattern `'key' in props` in your codebase and are ok with using `fastCompareUnsafe` for
+top-of-the-line performance, you can use that version:
+
 
 ```javascript
-import { fastMemoSafe } from 'react-fast-memo'
+import { fastMemoUnsafe } from 'react-fast-memo'
 ```
 
 ### Benchmarks
@@ -51,28 +52,28 @@ In least performant to most performant order. Each function is benchmarked for o
 
 ```jsonc
 {
-  "fbjs/lib/shallowEqual:equal:monomorphic":             { average: 1322.67, stddev: 1.699673171197595 },
-  "fbjs/lib/shallowEqual:unequal:monomorphic":           { average: 1243.67, stddev: 1.247219128924647 },
+  "fbjs/lib/shallowEqual:equal:monomorphic":      { t: 1339.67, stddev: 2.35},
+  "fbjs/lib/shallowEqual:unequal:monomorphic":    { t: 1274.33, stddev: 7.58},
 
-  "fast-shallow-equal:equal:monomorphic":                { average: 1235.67, stddev: 36.80881536926839 },
-  "fast-shallow-equal:unequal:monomorphic":              { average: 1241.33, stddev: 1.699673171197595 },
+  "fast-shallow-equal:equal:monomorphic":         { t: 1228.33, stddev: 36.44},
+  "fast-shallow-equal:unequal:monomorphic":       { t: 1174.33, stddev: 2.62},
 
-  "shallowequal:equal:monomorphic":                      { average: 1172.67, stddev: 71.94596737984848 },
-  "shallowequal:unequal:monomorphic":                    { average: 1194.33, stddev: 30.15883876338006 },
+  "react:equal:monomorphic":                      { t: 1240, stddev: 1.41},
+  "react:unequal:monomorphic":                    { t: 1229.67, stddev: 4.71},
 
-  "react:equal:monomorphic":                             { average: 1261,    stddev: 3.7416573867739413 },
-  "react:unequal:monomorphic":                           { average: 1249,    stddev: 1.632993161855452 },
+  "fast-equals.shallowEqual:equal:monomorphic":   { t: 1261.33, stddev: 42.67},
+  "fast-equals.shallowEqual:unequal:monomorphic": { t: 333.33, stddev: 2.05},
 
-  "fast-equals.shallowEqual:equal:monomorphic":          { average: 1237.67, stddev: 27.353650985238193 },
-  "fast-equals.shallowEqual:unequal:monomorphic":        { average: 325.67,  stddev: 1.8856180831641267 },
+  "shallowequal:equal:monomorphic":               { t: 1153, stddev: 67.23 },
+  "shallowequal:unequal:monomorphic":             { t: 1188, stddev: 29.06},
 
-  "romgrk-fastCompare:equal:monomorphic":                { average: 871.67,  stddev: 11.585431464655178 },
-  "romgrk-fastCompare:unequal:monomorphic":              { average: 777,     stddev: 8.831760866327848 }
+  "romgrk-fastCompare:equal:monomorphic":         { t: 859.67, stddev: 3.39},
+  "romgrk-fastCompare:unequal:monomorphic":       { t: 769.33, stddev: 2.05},
 
-  "hughsk/shallow-equals:equal:monomorphic":             { average: 600.67,  stddev: 35.31131389355102 },
-  "hughsk/shallow-equals:unequal:monomorphic":           { average: 562.67,  stddev: 3.681787005729087 },
+  "hughsk/shallow-equals:equal:monomorphic":      { t: 592.33, stddev: 41.96},
+  "hughsk/shallow-equals:unequal:monomorphic":    { t: 563.33, stddev: 4.18},
 
-  "romgrk-fastCompareForReactProps:equal:monomorphic":   { average: 515,     stddev: 7.483314773547883 },
-  "romgrk-fastCompareForReactProps:unequal:monomorphic": { average: 445.33,  stddev: 1.247219128924647 },
+  "romgrk-fastCompareUnsafe:equal:monomorphic":   { t: 515.67, stddev: 1.24},
+  "romgrk-fastCompareUnsafe:unequal:monomorphic": { t: 455.67, stddev: 7.31},
 }
 ```
