@@ -77,6 +77,9 @@ the safe version is the fastest one.
 
   "hughsk/shallow-equals:equal:monomorphic":      { t: 592.33, stddev: 41.96},
   "hughsk/shallow-equals:unequal:monomorphic":    { t: 563.33, stddev: 4.18},
+  // This one is faster than our safe one, but it uses `===` for comparison
+  // instead of `Object.is`, it is therefore incorrect because `NaN === NaN`
+  // is `false` due to the unsound semantics of `===` in float comparison.
 
   "romgrk-fastCompareUnsafe:equal:monomorphic":   { t: 515.67, stddev: 1.24},
   "romgrk-fastCompareUnsafe:unequal:monomorphic": { t: 455.67, stddev: 7.31},
