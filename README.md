@@ -54,6 +54,10 @@ In least performant to most performant order. Each function is benchmarked for o
 The full results here are for V8, and I have added partial results for JSC and SpiderMonkey after. Suprisingly, in JSC
 the safe version is the fastest one.
 
+Runnable benchmark code is in the `./benchmark` folder, and consist of comparing two 8-keys monomorphic objects together
+in a 1,000,000 iteration loop, in two cases: equal values, and unequal values (one differing value). Results are in
+milliseconds
+
 ```jsonc
 // V8
 {
@@ -78,8 +82,8 @@ the safe version is the fastest one.
   "hughsk/shallow-equals:equal:monomorphic":      { t: 592.33, stddev: 41.96},
   "hughsk/shallow-equals:unequal:monomorphic":    { t: 563.33, stddev: 4.18},
   // This one is faster than our safe one, but it uses `===` for comparison
-  // instead of `Object.is`, it is therefore incorrect because `NaN === NaN`
-  // is `false` due to the unsound semantics of `===` in float comparison.
+  // instead of `Object.is`, it is therefore incorrect because `NaN !== NaN`
+  // due to the unsound semantics of `===` in float comparison.
 
   "romgrk-fastCompareUnsafe:equal:monomorphic":   { t: 515.67, stddev: 1.24},
   "romgrk-fastCompareUnsafe:unequal:monomorphic": { t: 455.67, stddev: 7.31},
