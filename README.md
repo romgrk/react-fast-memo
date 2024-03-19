@@ -1,6 +1,6 @@
 # react-fast-memo
 
-A faster `React.memo()`. Use it as a direct replacement. Also includes fast object comparison functions.
+A faster `React.memo()`. Also includes the [fastest](#benchmarks) correct shallow object comparison function.
 
 ### Usage
 
@@ -16,37 +16,19 @@ const MemoizedComponent = fastMemo(function Component(props) {
 })
 ```
 
-These comparison functions are also included:
+The comparison function is also included:
 
 ```javascript
-import { fastCompare, fastCompareUnsafe } from 'react-fast-memo'
+import { fastCompare } from 'react-fast-memo'
 
 // `fastCompare` is for general and correct nullable-objects comparison
 console.log(fastCompare(
   { a: 1, b: undefined },
   { a: 1 },
 ))
-// => false
-
-// `fastCompareUnsafe` is optimized for one case: non-nullable objects
-// where either:
-//  - `field: undefined` is equivalent to not having the field.
-//  - you can 100% guarantee that objects have the same shape
-console.log(fastCompareUnsafe(
-  { a: 1, b: undefined },
-  { a: 1, c: undefined },
-))
-// => true
-
 ```
 
-If you never use the pattern `'key' in props` in your codebase and are ok with using `fastCompareUnsafe` for
-top-of-the-line performance, you can use that version:
-
-
-```javascript
-import { fastMemoUnsafe } from 'react-fast-memo'
-```
+An unsafe comparison function is also exported, `fastCompareUnsafe`, but it should only be used when objects are guaranteed to have the same shape.
 
 ### Benchmarks
 
