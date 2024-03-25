@@ -78,14 +78,14 @@ milliseconds
   "react:equal:monomorphic":                      { t: 401, stddev: 25.152865973217974 },
   "react:unequal:monomorphic":                    { t: 415.33, stddev: 3.39934634239519 },
 
+  "romgrk-fastCompareUnsafe:equal:monomorphic":   { t: 313.67, stddev: 30.26916289265731 },
+  "romgrk-fastCompareUnsafe:unequal:monomorphic": { t: 244.67, stddev: 3.8586123009300755 },
+
   "hughsk/shallow-equals:equal:monomorphic":      { t: 297, stddev: 14.236104336041748 },
   "hughsk/shallow-equals:unequal:monomorphic":    { t: 189.33, stddev: 2.0548046676563256 },
 
   "romgrk-fastCompare:equal:monomorphic":         { t: 199.67, stddev: 6.847546194724712 },
   "romgrk-fastCompare:unequal:monomorphic":       { t: 128.67, stddev: 1.247219128924647 },
-
-  "romgrk-fastCompareUnsafe:equal:monomorphic":   { t: 313.67, stddev: 30.26916289265731 },
-  "romgrk-fastCompareUnsafe:unequal:monomorphic": { t: 244.67, stddev: 3.8586123009300755 },
 }
 ```
 
